@@ -1,2 +1,1 @@
-# gaming-system
-small system for games between friends
+small system for games between friends, challenges in teams.
