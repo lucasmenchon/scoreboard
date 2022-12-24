@@ -9,76 +9,45 @@
     <meta property="og:site_name" content="Lucas Menchon">
     <meta property="og:description" content="Lucas - Desenvolvedor .NET">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Challenge</title>
+    <title>Gaming Points</title>
 </head>
 
 <body class="bg-secondary" id="inicio">
 
     <div id="principal" class="container">
         <header class="pb-4 pt-4">
-            <h1 class="text-white"><b class="text-danger">BSG</b> - Anime Challenge</h1>
+            <h1 class="text-white"><b class="text-info">BSG</b> - Gaming Points</h1>
         </header>
-        <div class="row pb-4">
-            <div class="col-auto">
-                <label class="text-white">Rounds Number</label>
-            </div>
-            <div class="col-auto">
-                <input type="number" class="form-control" v-model="RoundsNumber" />
-            </div>
-            <div class="col-auto">
-                <input type="button" class="btn btn-primary" @click="CountRounds" value="+" />
-                <input type="button" class="btn btn-primary" @click="LessRounds" value="-" />
-            </div>
 
-        </div>
-        <div class="row pb-4">
-            <div class="col-4">
-                <label class="text-danger fw-semibold">POINTS TEAM A</label>
-                <input type="number" class="form-control" v-model="PointsA" />
-                <div class="mt-1">
-                    <input type="button" class="btn btn-sm btn-danger" @click="CountPointsA" value="+" />
-                    <input type="button" class="btn btn-sm btn-danger" @click="LessPointsA" value="-" />
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="text-warning fw-semibold">POINTS TEAM B</label>
-                <input type="number" class="form-control" v-model="PointsB" />
-                <div class="mt-1">
-                    <input type="button" class="btn btn-sm btn-warning" @click="CountPointsB" value="+" />
-                    <input type="button" class="btn btn-sm btn-warning" @click="LessPointsB" value="-" />
-                </div>
-            </div>
-            <div class="col-4">
-                <label class="text-info fw-semibold">POINTS TEAM C</label>
-                <input type="number" class="form-control" v-model="PointsC" />
-                <div class="mt-1">
-                    <input type="button" class="btn btn-sm btn-info" @click="CountPointsC" value="+" />
-                    <input type="button" class="btn btn-sm btn-info" @click="LessPointsC" value="-" />
-                </div>
-            </div>
+        <h4 class="text-black">Adicionar Time</h4>
+        <div class="col-4">
+            <label class="text-white fw-semibold">Nome do time: <b class="text-warning">{{teamForm.name}}</b></label>
         </div>
         <div class="row">
-            <div class="col-auto">
-                <input type="button" class="btn btn-sm btn-info" @click="ResetPoints" value="Reset Game" />
+            <div class="col-3 pe-0">
+                <input type="text" class="form-control" v-model="teamForm.name" />
+            </div>
+            <div class="col-auto p-0 mx-1">
+                <button type="button" class="btn btn-primary" @click="addTeam()">+</button>
             </div>
         </div>
-        <!-- <div class="row">
-            <div class="col-auto">
-                <input type="button" class="btn btn-primary" value="Add Winner" @click="AddWinner"/>
-            </div>
-            <div class="col-auto">
-                <select class="form-control" v-model="Team">
-                    <option>TEAM A</option>
-                    <option>TEAM B</option>
-                    <option>TEAM C</option>
-                </select>
-            </div>          
-        </div>
-        <input v-model="Team" /> -->
 
+        <div class="row pt-4" v-if="teams.length > 0">
+            <div class="col-3" v-for="team in teams">
+                <label class="text-white fw-semibold">Nome do time: <b class="text-warning">{{team.name}}</b></label>
+                <br>
+                <label class="text-dark fw-bold">Pontos do time: <b :class="team.classPoints">{{team.points}}</b></label>
+
+                <div class="mt-1">
+                    <button type="button" class="btn btn-sm btn-success" @click="increasePoints(team)">+</button>
+                    <button type="button" class="btn btn-sm btn-danger mx-1" @click="decreasePoints(team)">-</button>
+                </div>
+            </div>
+        </div>
 
         <footer>
-            <!-- CSS only -->
+
+            <!-- CSS only-->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
                 integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
                 crossorigin="anonymous">
@@ -86,58 +55,67 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
                 integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
                 crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+            <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+            <!-- App Vue -->
             <script>
-                var webapp = new Vue({
-                    el: '#principal',
-                    data: {
-                        content: true,
-                        PointsA: 0,
-                        PointsB: 0,
-                        PointsC: 0,
-                        RoundsNumber: 0,
-                        Rounds: [],
-                        Team: 'TEAM A',
-                    },
-                    methods: {
-                        CountPointsA: function () {
-                            this.PointsA++;
-                        },
-                        LessPointsA: function () {
-                            this.PointsA--;
-                        },
-                        CountPointsB: function () {
-                            this.PointsB++;
-                        },
-                        LessPointsB: function () {
-                            this.PointsB--;
-                        },
-                        CountPointsC: function () {
-                            this.PointsC++;
-                        },
-                        LessPointsC: function () {
-                            this.PointsC--;
-                        },
-                        CountRounds: function () {
-                            this.RoundsNumber++;
-                        },
-                        LessRounds: function () {
-                            this.RoundsNumber--;
-                        },
-                        AddWinner: function () {
-                            this.RoundsNumber.push({
-                                winner: this.Team,
-                            });
-                        },
-                        ResetPoints: function () {
-                            this.RoundsNumber = 0;
-                            this.PointsA = 0;
-                            this.PointsB = 0;
-                            this.PointsC = 0;
+                const { createApp } = Vue
+                createApp({
+                    data() {
+                        return {
+                            roundsNumber: 0,
+                            rounds: [],                            
+                            teams: [],
+                            teamForm: {
+                                name: '',
+                                points: 0,
+                                classPoints: 'text-white',
+                            },
                         }
                     },
-                });
+                    watch: {
+                        teams: {
+                            handler(teams) {
+                                for (var objTeam of teams) {
+                                    if (objTeam.points < 0) {
+                                        objTeam.classPoints = 'text-danger'
+                                    }
+                                    else if(objTeam.points > 0){
+                                        objTeam.classPoints = 'text-white'
+                                    }
+                                    else{
+                                        objTeam.classPoints = 'text-warning'
+                                    }
+                                }
+                            },
+                            deep: true,
+                        }
+                    },
+                    methods: {
+                        
+                        increasePoints(team) {
+                            team.points++
+                        },
+                        decreasePoints(team) {
+                            team.points--
+                        },
+                        addTeam() {
+                            this.teams.push({
+                                name: this.teamForm.name,
+                                points: 0,
+                            })
+                        },
+                        AddWinner() {
+
+                        },
+                        ResetPoints() {
+
+                        }
+                    },
+                }).mount('#principal')
             </script>
+
         </footer>
     </div>
 </body>
