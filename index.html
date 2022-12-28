@@ -52,8 +52,8 @@
                 </div>
 
                 <label class="text-white fw-semibold">Members: <b class="text-warning"></b></label>
-                <div v-for="member in members">
-
+                <div v-for="member in team.members">
+                    {{member.name}}
                 </div>
 
 
@@ -90,7 +90,6 @@
                             roundsNumber: 0,
                             rounds: [],
                             teams: [],
-                            members: [],
                             teamForm: {
                                 id: 0,
                                 name: '',
@@ -100,6 +99,7 @@
                                     idTeam: 0,
                                     name: '',
                                 },
+                                members: [],
                             },
                         }
                     },
@@ -137,12 +137,13 @@
                                 points: 0,
                                 memberForm: {
 
-                                }
+                                },
+                                members: [],
                             })
                         },
                         addMember(team) {
-                            this.teamForm.members.push({
-                                name: this.memberForm.name,
+                            team.members.push({
+                                name: team.memberForm.name,
                             });
                         },
                         AddWinner() {
