@@ -9,19 +9,19 @@
     <meta property="og:site_name" content="Lucas Menchon">
     <meta property="og:description" content="Lucas - Desenvolvedor .NET">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Points</title>
+    <title>Gaming Points - For Friends</title>
 </head>
 
 <body class="bg-secondary" id="inicio">
 
     <div id="principal" class="container">
         <header class="pb-4 pt-4">
-            <h1 class="text-white"><b class="text-info">BSG</b> - Gaming Points</h1>
+            <h1 class="text-white"><b class="text-info">Gaming Points</b> - For Friends</h1>
         </header>
 
-        <h4 class="text-black">Adicionar Time</h4>
+        <h4 class="text-black">Add Team</h4>
         <div class="col-4">
-            <label class="text-white fw-semibold">Nome do time: <b class="text-warning">{{teamForm.name}}</b></label>
+            <label class="text-white fw-semibold">Team Name: <b class="text-warning">{{teamForm.name}}</b></label>
         </div>
         <div class="row">
             <div class="col-3 pe-0">
@@ -32,11 +32,34 @@
             </div>
         </div>
 
-        <div class="row pt-4" v-if="teams.length > 0">
+        <div class="row pt-4">
             <div class="col-3" v-for="team in teams">
-                <label class="text-white fw-semibold">Nome do time: <b class="text-warning">{{team.name}}</b></label>
+                <label class="text-white fw-semibold">ID: <b class="text-white">{{team.id}}</b></label> <br>
+                <label class="text-white fw-semibold">Name: <b class="text-warning">{{team.name}}</b></label>
                 <br>
-                <label class="text-dark fw-bold">Pontos do time: <b :class="team.classPoints">{{team.points}}</b></label>
+                <div class="col-auto pe-0">
+                    <label class="text-white fw-semibold">Add Member: <b
+                            class="text-warning">{{team.memberForm.name}}</b></label>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 pe-0 m-0">
+                        <input type="text" class="form-control" v-model="team.memberForm.name" />
+                    </div>
+                    <div class="col-auto p-0 mx-1">
+                        <button type="button" class="btn btn-primary" @click="addMember(team)">+</button>
+                    </div>
+                </div>
+
+                <label class="text-white fw-semibold">Members: <b class="text-warning"></b></label>
+                <div v-for="member in members">
+
+                </div>
+
+
+                <br>
+                <label class="text-dark fw-bold">Pontos do time:
+                    <b :class="team.classPoints">{{team.points}}</b></label>
 
                 <div class="mt-1">
                     <button type="button" class="btn btn-sm btn-success" @click="increasePoints(team)">+</button>
@@ -65,12 +88,18 @@
                     data() {
                         return {
                             roundsNumber: 0,
-                            rounds: [],                            
+                            rounds: [],
                             teams: [],
+                            members: [],
                             teamForm: {
+                                id: 0,
                                 name: '',
                                 points: 0,
                                 classPoints: 'text-white',
+                                memberForm: {
+                                    idTeam: 0,
+                                    name: '',
+                                },
                             },
                         }
                     },
@@ -81,19 +110,20 @@
                                     if (objTeam.points < 0) {
                                         objTeam.classPoints = 'text-danger'
                                     }
-                                    else if(objTeam.points > 0){
+                                    else if (objTeam.points > 0) {
                                         objTeam.classPoints = 'text-white'
                                     }
-                                    else{
-                                        objTeam.classPoints = 'text-warning'
+                                    else {
+                                        objTeam.classPoints = 'text-info'
                                     }
                                 }
+
                             },
                             deep: true,
                         }
                     },
                     methods: {
-                        
+
                         increasePoints(team) {
                             team.points++
                         },
@@ -102,9 +132,18 @@
                         },
                         addTeam() {
                             this.teams.push({
+                                id: this.teamForm.id++,
                                 name: this.teamForm.name,
                                 points: 0,
+                                memberForm: {
+
+                                }
                             })
+                        },
+                        addMember(team) {
+                            this.teamForm.members.push({
+                                name: this.memberForm.name,
+                            });
                         },
                         AddWinner() {
 
