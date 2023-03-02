@@ -9,156 +9,157 @@
     <meta property="og:site_name" content="Lucas Menchon">
     <meta property="og:description" content="Lucas - Desenvolvedor .NET">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Points - For Friends</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Scoreboard</title>
 </head>
 
-<body class="bg-secondary" id="inicio">
-
-    <div id="principal" class="container">
-        <header class="pb-4 pt-4">
-            <h1 class="text-white"><b class="text-info">Gaming Points</b> - For Friends</h1>
+<body class="bg-light" id="inicio">
+    <div id="principal" class="container py-5">
+        <header class="text-center mb-5">
+            <h1 class="text-primary fw-bold display-4"><i class="fas fa-trophy"></i> Scoreboard</h1>
         </header>
 
-        <h4 class="text-black">Add Team</h4>
-        <div class="col-4">
-            <label class="text-white fw-semibold">Team Name:
-                <b class="text-warning">{{teamForm.name}}</b>
-            </label>
-        </div>
-        <div class="row">
-            <div class="col-3 pe-0">
-                <input type="text" class="form-control" v-model="teamForm.name" />
-            </div>
-            <div class="col-auto p-0 mx-1">
-                <button type="button" class="btn btn-primary" @click="addTeam()">+</button>
-            </div>
-        </div>
-
-        <div class="row pt-4">
-            <div class="col-3" v-for="team in teams">
-                <label class="text-white fw-semibold">ID:
-                    <b class="text-white">{{team.id}}</b>
-                </label>
-                <br>
-                <label class="text-white fw-semibold">Name:
-                    <b class="text-warning">{{team.name}}</b>
-                </label>
-                <br>
-                <div class="col-auto pe-0">
-                    <label class="text-white fw-semibold">Add Member:
-                        <b class="text-warning">{{team.memberForm.name}}</b></label>
-                </div>
-
-                <div class="row">
-                    <div class="col-6 pe-0 m-0">
-                        <input type="text" class="form-control" v-model="team.memberForm.name" />
+        <div class="row mb-4">
+            <div class="col">
+                <h4 class="text-dark fw-bold"><i class="fas fa-plus"></i> Add Team</h4>
+                <form>
+                    <div class="mb-3">
+                        <label for="teamNameInput" class="form-label text-secondary fw-bold"><i
+                                class="fas fa-users"></i> Team Name</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" required>
+                            <button type="button" class="btn btn-primary" @click="addTeam()"><i
+                                    class="fas fa-check"></i></button>
+                        </div>
                     </div>
-                    <div class="col-auto p-0 mx-1">
-                        <button type="button" class="btn btn-primary" @click="addMember(team)">+</button>
-                    </div>
-                </div>
-
-                <label class="text-white fw-semibold">Members: <b class="text-warning"></b></label>
-                <div v-for="member in team.members">
-                    {{member.name}}
-                </div>
-
-                <br>
-                <label class="text-dark fw-bold">Pontos do time:
-                    <b :class="team.classPoints">{{team.points}}</b></label>
-
-                <div class="mt-1">
-                    <button type="button" class="btn btn-sm btn-success" @click="increasePoints(team)">+</button>
-                    <button type="button" class="btn btn-sm btn-danger mx-1" @click="decreasePoints(team)">-</button>
-                </div>
+                </form>
             </div>
         </div>
 
-        <footer>
+        <div class="row g-4">
+            <div class="col-md-4" v-for="team in teams" :key="team.id">
+                <div class="card bg-secondary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold"><i class="fas fa-flag"></i> {{team.name}}</h5>
+                        <p class="card-text">
+                            <span class="text-secondary fw-bold"><i class="fas fa-users"></i> Members:</span>
+                        <ul class="list-unstyled">
+                            <li v-for="member in team.members" :key="member.id" class="text-white"><i
+                                    class="fas fa-user"></i> {{member.name}}</li>
+                        </ul>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-sm btn-success" @click="increasePoints(team)"><i
+                                    class="fas fa-plus"></i></button>
+                            <h6 class="card-subtitle mb-2 fw-bold">{{team.points}}</h6>
+                            <button type="button" class="btn btn-sm btn-danger" @click="decreasePoints(team)"><i
+                                    class="fas fa-minus"></i></button>
+                        </div>
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <form>
+                            <div class="mb-3">
+                                <label for="memberNameInput{{team.id}}" class="form-label text-white fw-bold"><i
+                                        class="fas fa-user-plus"></i> Add Member: {{team.memberForm.name}}
+                                    <input type="text" class="form-control" v-model="team.memberForm.name" /></label>
 
-            <!-- CSS only-->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-                integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-                crossorigin="anonymous">
+                                <div class="input-group">
 
-            <!-- JavaScript Bundle with Popper -->
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-                crossorigin="anonymous"></script>
-
-            <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-            <!-- App Vue -->
-            <script>
-                const { createApp } = Vue
-                createApp({
-                    data() {
-                        return {
-                            roundsNumber: 0,
-                            rounds: [],
-                            teams: [],
-                            teamForm: {
-                                id: 0,
-                                name: '',
-                                points: 0,
-                                classPoints: '',
-                                memberForm: {},
-                                members: [],
-                            },
-                        }
-                    },
-                    watch: {
-                        teams: {
-                            handler(teams) {
-                                for (var objTeam of teams) {
-                                    if (objTeam.points < 0) {
-                                        objTeam.classPoints = 'text-danger'
-                                    }
-                                    else if (objTeam.points > 0) {
-                                        objTeam.classPoints = 'text-info'
-                                    }
-                                    else {
-                                        objTeam.classPoints = 'text-white'
-                                    }
-                                }
-                            },
-                            deep: true,
-                        }
-                    },
-                    methods: {
-
-                        increasePoints(team) {
-                            team.points++
-                        },
-                        decreasePoints(team) {
-                            team.points--
-                        },
-                        addTeam() {
-                            this.teams.push({
-                                id: this.teamForm.id++,
-                                name: this.teamForm.name,
-                                points: 0,
-                                memberForm: {},
-                                members: [],
-                            })
-                            this.teamForm.name = ''
-                        },
-                        addMember(team) {
-                            team.members.push({
-                                name: team.memberForm.name,
-                            })
-                            team.memberForm.name = ''
-                        },
-                        AddWinner() {
-                        },
-                        ResetPoints() {
-                        }
-                    },
-                }).mount('#principal')
-            </script>
-
-        </footer>
+                                    <button type="button" class="btn btn-primary bg-primary"
+                                        @click="addMember(team)">+</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+
+        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+        <!-- App Vue -->
+        <script>
+            const { createApp } = Vue
+            createApp({
+                data() {
+                    return {
+                        teams: [],
+                        teamForm: {
+                            id: 0,
+                            name: '',
+                            points: 0,
+                            classPoints: '',
+                            memberForm: {
+                                name: '',
+                            },
+                            members: [],
+                        },
+                    }
+                },
+                watch: {
+                    teams: {
+                        handler(teams) {
+                            for (var objTeam of teams) {
+                                if (objTeam.points < 0) {
+                                    objTeam.classPoints = 'text-danger'
+                                }
+                                else if (objTeam.points > 0) {
+                                    objTeam.classPoints = 'text-info'
+                                }
+                                else {
+                                    objTeam.classPoints = 'text-white'
+                                }
+                            }
+                        },
+                        deep: true,
+                    }
+                },
+                methods: {
+
+                    increasePoints(team) {
+                        team.points++
+                    },
+                    decreasePoints(team) {
+                        team.points--
+                    },
+                    addTeam() {
+                        if (!this.teamForm.name) {
+
+                        }
+                        this.teams.push({
+                            id: this.teamForm.id++,
+                            name: this.teamForm.name,
+                            points: 0,
+                            memberForm: {},
+                            members: [],
+                        })
+                        this.teamForm.name = ''
+                    },
+                    addMember(team) {
+                        team.members.push({
+                            name: team.memberForm.name,
+                        })
+                        team.memberForm.name = ''
+                    },
+                },
+            }).mount('#principal')
+        </script>
+
+    </footer>
+    </div>
+
 </body>
 
 </html>
