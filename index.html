@@ -10,82 +10,57 @@
     <meta property="og:description" content="Lucas - Desenvolvedor .NET">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <title>Scoreboard</title>
 </head>
 
-<body class="bg-light" id="inicio">
-    <div id="principal" class="container py-5">
-        <header class="text-center mb-5">
-            <h1 class="text-primary fw-bold display-4"><i class="fas fa-trophy"></i> Scoreboard</h1>
-        </header>
-
-        <div class="row mb-4">
-            <div class="col">
-                <h4 class="text-dark fw-bold"><i class="fas fa-plus"></i> Add Team</h4>
-                <form>
-                    <div class="mb-3">
-                        <label for="teamNameInput" class="form-label text-secondary fw-bold"><i
-                                class="fas fa-users"></i> Team Name</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" required>
-                            <button type="button" class="btn btn-primary" @click="addTeam()"><i
-                                    class="fas fa-check"></i></button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <div class="col-md-4" v-for="team in teams" :key="team.id">
-                <div class="card bg-secondary text-white">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold"><i class="fas fa-flag"></i> {{team.name}}</h5>
-                        <p class="card-text">
-                            <span class="text-secondary fw-bold"><i class="fas fa-users"></i> Members:</span>
-                        <ul class="list-unstyled">
-                            <li v-for="member in team.members" :key="member.id" class="text-white"><i
-                                    class="fas fa-user"></i> {{member.name}}</li>
-                        </ul>
-                        <div class="d-flex justify-content-between">
-                            <button type="button" class="btn btn-sm btn-success" @click="increasePoints(team)"><i
-                                    class="fas fa-plus"></i></button>
-                            <h6 class="card-subtitle mb-2 fw-bold">{{team.points}}</h6>
-                            <button type="button" class="btn btn-sm btn-danger" @click="decreasePoints(team)"><i
-                                    class="fas fa-minus"></i></button>
-                        </div>
-                        </p>
-                    </div>
-                    <div class="card-footer bg-transparent">
-                        <form>
-                            <div class="mb-3">
-                                <label for="memberNameInput{{team.id}}" class="form-label text-white fw-bold"><i
-                                        class="fas fa-user-plus"></i> Add Member: {{team.memberForm.name}}
-                                    <input type="text" class="form-control" v-model="team.memberForm.name" /></label>
-
-                                <div class="input-group">
-
-                                    <button type="button" class="btn btn-primary bg-primary"
-                                        @click="addMember(team)">+</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <body class="bodyScoreboard" id="inicio">
+        <div id="principal" class="">
+          <header class="headerScoreboard">
+            <h1 class="titleScoreboard"><i class="fas fa-trophy"></i> Scoreboard</h1>
+          </header>
+      
+          <div class="scoreboard">
+            <div class="add-team">
+              <h4 class="titleAddTeam"><i class="fas fa-plus"></i> Add Team</h4>
+              <form>
+                <div class="form-group">
+                  <label for="teamNameInput" class="labelsBoard"><i class="fas fa-users"></i> Team Name</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" required>
+                    <button type="button" class="btn btn-primary" @click="addTeam()"><i class="fas fa-check"></i></button>
+                  </div>
                 </div>
+              </form>
             </div>
+      
+            <div class="team-cards">
+              <div class="team-card" v-for="team in teams" :key="team.id">
+                <div class="team-card-header">
+                  <h5 class="team-name"><i class="fas fa-flag"></i> {{team.name}}</h5>
+                  <div class="team-score">
+                    <button type="button" class="btn" @click="increasePoints(team)"><i class="fas fa-plus"></i></button>
+                    <h6 class="score">{{team.points}}</h6>
+                    <button type="button" class="btn" @click="decreasePoints(team)"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+                <ul class="team-members">
+                  <li v-for="member in team.members" :key="member.id" class="member-name"><i class="fas fa-user"></i> {{member.name}}</li>
+                </ul>
+                <form class="add-member-form">
+                  <div class="form-group">
+                    <label for="memberNameInput{{team.id}}" class="labelsBoard"><i class="fas fa-user-plus"></i> Add Member:</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="team.memberForm.name"/>
+                      <button type="button" class="btn" @click="addMember(team)"><i class="fas fa-plus"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-
     <footer>
-
-        <!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-        <!-- JavaScript Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"></script>
 
         <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 
@@ -134,10 +109,7 @@
                     decreasePoints(team) {
                         team.points--
                     },
-                    addTeam() {
-                        if (!this.teamForm.name) {
-
-                        }
+                    addTeam() {                        
                         this.teams.push({
                             id: this.teamForm.id++,
                             name: this.teamForm.name,
