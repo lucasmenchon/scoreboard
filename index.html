@@ -2,135 +2,145 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta property="og:locale" content="pt_BR">
-    <meta property="og:url" content="https://luccas.dev">
-    <meta property="og:title" content="Lucas Menchon">
-    <meta property="og:site_name" content="Lucas Menchon">
-    <meta property="og:description" content="Lucas - Desenvolvedor .NET">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Scoreboard</title>
+  <meta charset="UTF-8">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:url" content="https://luccas.dev">
+  <meta property="og:title" content="Lucas Menchon">
+  <meta property="og:site_name" content="Lucas Menchon">
+  <meta property="og:description" content="Lucas - Desenvolvedor .NET">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>Scoreboard</title>
 </head>
 
-    <body class="bodyScoreboard" id="inicio">
-        <div id="principal" class="">
-          <header class="headerScoreboard">
-            <h1 class="titleScoreboard"><i class="fas fa-trophy"></i> Scoreboard</h1>
-          </header>
-      
-          <div class="scoreboard">
-            <div class="add-team">
-              <h4 class="titleAddTeam"><i class="fas fa-plus"></i> Add Team</h4>
-              <form>
-                <div class="form-group">
-                  <label for="teamNameInput" class="labelsBoard"><i class="fas fa-users"></i> Team Name</label>
-                  <div class="input-group">
-                    <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" required>
-                    <button type="button" class="btn btn-primary" @click="addTeam()"><i class="fas fa-check"></i></button>
-                  </div>
-                </div>
-              </form>
-            </div>
-      
-            <div class="team-cards">
-              <div class="team-card" v-for="team in teams" :key="team.id">
-                <div class="team-card-header">
-                  <h5 class="team-name"><i class="fas fa-flag"></i> {{team.name}}</h5>
-                  <div class="team-score">
-                    <button type="button" class="btn" @click="increasePoints(team)"><i class="fas fa-plus"></i></button>
-                    <h6 class="score">{{team.points}}</h6>
-                    <button type="button" class="btn" @click="decreasePoints(team)"><i class="fas fa-minus"></i></button>
-                  </div>
-                </div>
-                <ul class="team-members">
-                  <li v-for="member in team.members" :key="member.id" class="member-name"><i class="fas fa-user"></i> {{member.name}}</li>
-                </ul>
-                <form class="add-member-form">
-                  <div class="form-group">
-                    <label for="memberNameInput{{team.id}}" class="labelsBoard"><i class="fas fa-user-plus"></i> Add Member:</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" v-model="team.memberForm.name"/>
-                      <button type="button" class="btn" @click="addMember(team)"><i class="fas fa-plus"></i></button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+<body class="bodyScoreboard" id="inicio">
+  <div id="principal" class="">
+    <header class="headerScoreboard">
+      <h1 class="titleScoreboard"><i class="fas fa-trophy"></i> Scoreboard</h1>
+    </header>
+
+    <div class="scoreboard">
+      <div class="add-team">
+        <h4 class="titleAddTeam"><i class="fas fa-plus"></i> Add Team</h4>
+        <form>
+          <div class="form-group">
+            <label for="teamNameInput" class="labelsBoard"><i class="fas fa-users"></i> Team Name*<label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" maxlength="5" required>
+              <button type="button" class="btn btn-primary" @click="addTeam()"><i class="fas fa-check"></i></button>
             </div>
           </div>
+        </form>
+      </div>
+
+      <div class="team-cards">
+        <div class="team-card" v-for="team in teams" :key="team.id">
+          <div class="team-card-header">
+            <h5 class="team-name"><i class="fas fa-flag"></i> {{team.name}}</h5>
+            <div class="team-score">
+              <button type="button" class="btn" @click="increasePoints(team)"><i class="fas fa-plus"></i></button>
+              <h6 class="score">{{team.points}}</h6>
+              <button type="button" class="btn" @click="decreasePoints(team)"><i class="fas fa-minus"></i></button>
+            </div>
+          </div>
+          <ul class="team-members">
+            <li v-for="member in team.members" :key="member.id" class="member-name"><i class="fas fa-user"></i>
+              {{member.name}}</li>
+          </ul>
+          <form class="add-member-form">
+            <div class="form-group">
+              <label for="memberNameInput{{team.id}}" class="labelsBoard"><i class="fas fa-user-plus"></i> Add
+                Member:</label>
+              <div class="input-group">
+                <input type="text" class="form-control" v-model="team.memberForm.name" />
+                <button type="button" class="btn" @click="addMember(team)"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+          </form>
         </div>
-    <footer>
-
-        <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-
-        <!-- App Vue -->
-        <script>
-            const { createApp } = Vue
-            createApp({
-                data() {
-                    return {
-                        teams: [],
-                        teamForm: {
-                            id: 0,
-                            name: '',
-                            points: 0,
-                            classPoints: '',
-                            memberForm: {
-                                name: '',
-                            },
-                            members: [],
-                        },
-                    }
-                },
-                watch: {
-                    teams: {
-                        handler(teams) {
-                            for (var objTeam of teams) {
-                                if (objTeam.points < 0) {
-                                    objTeam.classPoints = 'text-danger'
-                                }
-                                else if (objTeam.points > 0) {
-                                    objTeam.classPoints = 'text-info'
-                                }
-                                else {
-                                    objTeam.classPoints = 'text-white'
-                                }
-                            }
-                        },
-                        deep: true,
-                    }
-                },
-                methods: {
-
-                    increasePoints(team) {
-                        team.points++
-                    },
-                    decreasePoints(team) {
-                        team.points--
-                    },
-                    addTeam() {                        
-                        this.teams.push({
-                            id: this.teamForm.id++,
-                            name: this.teamForm.name,
-                            points: 0,
-                            memberForm: {},
-                            members: [],
-                        })
-                        this.teamForm.name = ''
-                    },
-                    addMember(team) {
-                        team.members.push({
-                            name: team.memberForm.name,
-                        })
-                        team.memberForm.name = ''
-                    },
-                },
-            }).mount('#principal')
-        </script>
-
-    </footer>
+      </div>
     </div>
+  </div>
+  <footer>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+    <!-- App Vue -->
+    <script>
+      const { createApp } = Vue
+      createApp({
+        data() {
+          return {
+            teams: [],
+            teamForm: {
+              id: 0,
+              name: '',
+              points: 0,
+              classPoints: '',
+              memberForm: {
+                name: '',
+              },
+              members: [],
+            },
+          }
+        },
+        watch: {
+          // teams: {
+          //     handler(teams) {
+          //         for (var objTeam of teams) {
+          //             if (objTeam.points < 0) {
+          //                 objTeam.classPoints = 'text-danger'
+          //             }
+          //             else if (objTeam.points > 0) {
+          //                 objTeam.classPoints = 'text-info'
+          //             }
+          //             else {
+          //                 objTeam.classPoints = 'text-white'
+          //             }
+          //         }
+          //     },
+          //     deep: true,
+          // }
+        },
+        methods: {
+
+          increasePoints(team) {
+            team.points++
+          },
+          decreasePoints(team) {
+            if (team.points > 0) {
+              team.points--;
+            } else {
+              team.points = 0;
+            }
+          },
+          addTeam() {
+            if (!this.teamForm.name || this.teamForm.name.trim() === '') {
+              return;
+            }
+
+            this.teams.push({
+              id: this.teamForm.id++,
+              name: this.teamForm.name,
+              points: 0,
+              memberForm: {},
+              members: [],
+            });
+            this.teamForm.name = '';
+          },
+          addMember(team) {
+            team.members.push({
+              name: team.memberForm.name,
+            })
+            team.memberForm.name = ''
+          },
+        },
+      }).mount('#principal')
+    </script>
+
+  </footer>
+  </div>
 
 </body>
 
