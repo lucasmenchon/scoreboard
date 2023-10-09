@@ -26,10 +26,11 @@
         <form>
           <div class="form-group">
             <label for="teamNameInput" class="labelsBoard"><i class="fas fa-users"></i> Team Name*<label>
-            <div class="input-group">
-              <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" maxlength="5" required>
-              <button type="button" class="btn btn-primary" @click="addTeam()"><i class="fas fa-check"></i></button>
-            </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="teamNameInput" v-model="teamForm.name" maxlength="5"
+                    required>
+                  <button type="button" class="btn btn-primary" @click="addTeam()"><i class="fas fa-check"></i></button>
+                </div>
           </div>
         </form>
       </div>
@@ -106,7 +107,11 @@
         methods: {
 
           increasePoints(team) {
-            team.points++
+            if (team.points < 9) {
+              team.points++
+            }else{
+              team.points = 9
+            }
           },
           decreasePoints(team) {
             if (team.points > 0) {
