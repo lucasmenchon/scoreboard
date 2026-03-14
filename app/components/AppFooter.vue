@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <p class="footer-text">
-        <i class="fas fa-trophy"></i> Scoreboard Pro &mdash; Made with <i class="fas fa-heart" style="color: var(--danger);"></i> &amp; Vue 3 + Nuxt 4
+        <img src="/favicon.svg" alt="" width="14" height="14" style="vertical-align: -2px;" /> Scoreboard &mdash; Made with <i class="fas fa-heart" style="color: var(--danger);"></i> &amp; Vue 3 + Nuxt 4
       </p>
     </div>
   </footer>

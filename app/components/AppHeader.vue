@@ -3,10 +3,10 @@
     <div class="container header-inner">
       <div class="header-brand">
         <div class="logo">
-          <i class="fas fa-trophy"></i>
+          <img src="/favicon.svg" alt="Scoreboard" width="28" height="28" />
         </div>
         <div>
-          <h1 class="header-title">Scoreboard <span class="pro-badge">PRO</span></h1>
+          <h1 class="header-title">Scoreboard</h1>
           <p class="header-subtitle">Placar interativo para jogos</p>
         </div>
       </div>
@@ -157,17 +157,7 @@ function confirmResetAll() {
   line-height: 1.2;
 }
 
-.pro-badge {
-  font-size: 0.6rem;
-  background: var(--accent);
-  color: #1a1a2e;
-  -webkit-text-fill-color: #1a1a2e;
-  padding: 2px 6px;
-  border-radius: 4px;
-  vertical-align: super;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
+
 
 .header-subtitle {
   font-size: 0.75rem;

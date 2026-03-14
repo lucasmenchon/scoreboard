@@ -7,7 +7,7 @@
       <div class="welcome-icon">
         <i class="fas fa-gamepad"></i>
       </div>
-      <h2 class="welcome-title">Bem-vindo ao Scoreboard Pro!</h2>
+      <h2 class="welcome-title">Bem-vindo ao Scoreboard!</h2>
       <p class="welcome-desc">
         Crie times, adicione membros, marque pontos e acompanhe tudo em tempo real. 
         Perfeito para jogos entre amigos, competições e desafios!
@@ -78,7 +78,7 @@ import { useScoreboardStore } from '~/stores/scoreboard'
 const store = useScoreboardStore()
 
 useHead({
-  title: 'Scoreboard Pro - Placar Interativo',
+  title: 'Scoreboard - Placar Interativo',
 })
 </script>
 

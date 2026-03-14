@@ -8,6 +8,16 @@ export default defineNuxtConfig({
   ssr: false,
   app: {
     baseURL: '/scoreboard/',
+    head: {
+      title: 'Scoreboard - Placar Interativo',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/scoreboard/favicon.svg' },
+      ],
+      meta: [
+        { name: 'description', content: 'Placar interativo para jogos entre amigos, competições e desafios.' },
+        { name: 'theme-color', content: '#7c3aed' },
+      ],
+    },
   },
   modules: [
     '@pinia/nuxt',

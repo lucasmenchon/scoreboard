@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c3aed"/>
+      <stop offset="100%" style="stop-color:#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Trophy -->
+  <path d="M22 16 h20 l-3 22 c-0.5 3-3 5-6 5 h-2 c-3 0-5.5-2-6-5 Z" fill="url(#gold)"/>
+  <!-- Handles -->
+  <path d="M22 19 c-6 0-9 4-9 8 c0 6 4 9 9 9" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 19 c6 0 9 4 9 8 c0 6-4 9-9 9" fill="none" stroke="url(#gold)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Rim -->
+  <rect x="21" y="14" width="22" height="3" rx="1.5" fill="#fbbf24"/>
+  <!-- Base -->
+  <rect x="27" y="43" width="10" height="3" rx="1" fill="#d97706"/>
+  <rect x="24" y="46" width="16" height="4" rx="2" fill="url(#gold)"/>
+  <!-- Star -->
+  <polygon points="32,22 34,27 39,27 35,30 36.5,35 32,32 27.5,35 29,30 25,27 30,27" fill="white" opacity="0.9"/>
+</svg>
