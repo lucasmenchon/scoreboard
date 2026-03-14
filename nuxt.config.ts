@@ -5,6 +5,10 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
+  ssr: false,
+  app: {
+    baseURL: '/scoreboard/',
+  },
   modules: [
     '@pinia/nuxt',
     '@vueuse/nuxt',
