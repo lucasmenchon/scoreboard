@@ -5,7 +5,7 @@
     <!-- Welcome state -->
     <div v-if="!store.gameStarted" class="welcome animate-fade-in-up">
       <div class="welcome-icon">
-        <i class="fas fa-gamepad"></i>
+        <img src="/logo.svg" alt="Scoreboard" width="64" height="64" />
       </div>
       <h2 class="welcome-title">Bem-vindo ao Scoreboard!</h2>
       <p class="welcome-desc">

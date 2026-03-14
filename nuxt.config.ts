@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       title: 'Scoreboard - Placar Interativo',
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/scoreboard/favicon.svg' },
+        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' },
       ],
       meta: [
         { name: 'description', content: 'Placar interativo para jogos entre amigos, competições e desafios.' },
